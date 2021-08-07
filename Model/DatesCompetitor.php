@@ -1,27 +1,34 @@
 <?php
 
-class DatesCompetitor {
+class DatesCompetitor
+{
 
     private $miConexion;
     private $mensaje;
     private $retorno;
 
-    function __construct() {
+    function __construct()
+    {
         $this->miConexion = Conexion::singleton();
         $this->retorno = new stdClass();
     }
 
-    public function addCompetitor(Competitor $unCompetitor) {
+    public function addCompetitor(Competitor $unCompetitor)
+    {
         $this->mensaje = null;
 
         try {
             $this->miConexion->beginTransaction();
             $consulta = "INSERT INTO competitor VALUES (null,?,?,?)";
+
             $resultado = $this->miConexion->prepare($consulta);
             $resultado->bindParam(1, $unCompetitor->getName());
             $resultado->bindParam(2, $unCompetitor->getScore());
-            $resultado->bindParam(3, $unCompetitor->getCreatedAt());
+            $resultado->bindParam(3, $unCompetitor->getDateCreat());
             $resultado->execute();
+            $this->retorno->estado = true;
+            $this->retorno->datos = $resultado;
+            $this->retorno->mensaje = "agregada.";
         } catch (PDOException $ex) {
             $this->mensaje = $ex->getMessage();
             $this->retorno->estado = false;
@@ -31,4 +38,3 @@ class DatesCompetitor {
         return $this->retorno;
     }
 }
-?>

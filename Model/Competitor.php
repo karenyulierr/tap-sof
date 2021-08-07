@@ -5,11 +5,13 @@ class Competitor
     private $id;
     private $name;
     private $score;
+    private $date_creat;
 
-    function __construct($name = null, $score = null, $created_at = null)
+    function __construct($name = null, $score = null, $date_creat = null)
     {
         $this->name = $name;
         $this->score = $score;
+        $this->date_creat = $date_creat;
     }
 
     function getId()
@@ -41,13 +43,13 @@ class Competitor
         $this->score = $score;
     }
 
-    function getCreatedAt()
+    function getDateCreat()
     {
-        return $this->created_at;
+        return $this->date_creat;
     }
 
-    function setCreatedAt($created_at)
+    function setDateCreat($date_creat)
     {
-        $this->created_at = $created_at;
+        $this->created_at = $date_creat;
     }
 }
