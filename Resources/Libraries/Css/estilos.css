@@ -1,0 +1,18 @@
+#image_flia{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#frm_add{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#btn_add{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
