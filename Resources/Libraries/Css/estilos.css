@@ -16,3 +16,10 @@
     justify-content: space-around;
     align-items: center;
 }
+
+#jumb{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #E9ECEF !important;
+}

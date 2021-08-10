@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
   $('#example').DataTable({
     "fnCreatedRow": function (nRow, aData, iDataIndex) {
@@ -10,6 +9,25 @@ $(document).ready(function () {
     'order': [],
     'ajax': {
       'url': 'Model/fetch_data.php',
+      'type': 'post',
+    },
+    "columnDefs": [{
+      'target': [5],
+      'orderable': false,
+    }]
+  });
+});
+$(document).ready(function () {
+  $('#exampleList').DataTable({
+    "fnCreatedRows": function (nRow, aData, iDataIndex) {
+      $(nRow).attr('id', aData[0]);
+    },
+    'serverSide': 'true',
+    'processing': 'true',
+    'paging': 'true',
+    'order': [],
+    'ajax': {
+      'url': 'Model/fetch_data_list.php',
       'type': 'post',
     },
     "columnDefs": [{
@@ -40,6 +58,8 @@ $(document).on('submit', '#addUser', function (e) {
         if (status == 'true') {
           mytable = $('#example').DataTable();
           mytable.draw();
+          mytables = $('#exampleList').DataTable();
+          mytables.draw();
           $('#addUserModal').modal('hide');
         } else {
           alert('failed');
@@ -73,7 +93,8 @@ $(document).on('submit', '#addUserT', function (e) {
           var score = $('#addUserScore').val('');
           mytable = $('#example').DataTable();
           mytable.draw();
-
+          mytables = $('#exampleList').DataTable();
+          mytables.draw();
         } else {
           alert('failed');
         }
