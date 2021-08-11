@@ -12,7 +12,20 @@
     <title>Tapazo</title>
     <link rel="shortcut icon" type="image/x-icon" href="Resources/Images/circle-flia.png">
     <link rel="stylesheet" href="Resources/Libraries/Css/estilos.css">
+    <script type="text/javascript">
 
+		function tiempoReal()
+		{
+			var tabla = $.ajax({
+				url:'Model/fetch_data_list.php',
+				dataType:'text',
+				async:false
+			}).responseText;
+
+			document.getElementById("exampleList").innerHTML = tabla;
+		}
+		setInterval(tiempoReal, 1000);
+		</script>
 </head>
 
 <body>
@@ -37,7 +50,7 @@
                     
                     <div class="col-md-8">
                     <h4 class="text-center">Listado de participantes</h4>
-                        <table id="exampleList" class="table">
+                        <!--<table id="exampleList" class="table">
                             <thead>
                                 <th>#</th>
                                 <th>Nombre </th>
@@ -45,7 +58,8 @@
                             </thead>
                             <tbody>
                             </tbody>
-                        </table>
+                        </table>-->
+                        <section id="exampleList"></section>
                     </div>
                     <div class="col-md-2"></div>
                 </div>
@@ -62,7 +76,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
   -->
-    <script src="Resources/Libraries/Js/funciones.js"></script>
+    
 
 </body>
 

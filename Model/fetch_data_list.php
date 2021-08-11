@@ -1,53 +1,34 @@
-<?php include('connection.php');
+<?php
+////////////////// CONEXION A LA BASE DE DATOS ////////////////////////////////////
+$host="localhost";
+$usuario="root";
+$contraseña="";
+$base="tap-soft";
 
-$output= array();
-$sql = "SELECT * FROM competitor ";
-
-$totalQuery = mysqli_query($con,$sql);
-$total_all_rows = mysqli_num_rows($totalQuery);
-
-if(isset($_POST['search']['value']))
+$conexion= new mysqli($host, $usuario, $contraseña, $base);
+if ($conexion -> connect_errno)
 {
-	$search_value = $_POST['search']['value'];
-	$sql .= " WHERE name like '%".$search_value."%'";
-	$sql .= " OR score like '%".$search_value."%'";
+	die("Fallo la conexion:(".$conexion ->mysqli_connect_errno().")".$conexion->mysqli_connect_error());
 }
 
-if(isset($_POST['order']))
-{
-	$column_name = $_POST['order'][0]['column'];
-	$order = $_POST['order'][0]['dir'];
-	$sql .= " ORDER BY ".$column_name." ".$order."";
-}
-else
-{
-	$sql .= " ORDER BY score desc";
-}
+/////////////////////// CONSULTA A LA BASE DE DATOS ////////////////////////
+$resAlumnos=$conexion->query("SELECT * FROM competitor order by score desc");
 
-if($_POST['length'] != -1)
-{
-	$start = $_POST['start'];
-	$length = $_POST['length'];
-	$sql .= " LIMIT  ".$start.", ".$length;
-}	
 
-$query = mysqli_query($con,$sql);
-$count_rows = mysqli_num_rows($query);
-$data = array();
-while($row = mysqli_fetch_assoc($query))
-{
-	$sub_array = array();
-	$sub_array[] = $row['id'];
-	$sub_array[] = $row['name'];
-	$sub_array[] = $row['score'];
-	$sub_array[] = '<a href="javascript:void();" data-id="'.$row['id'].'"  class="btn btn-info btn-sm editbtn" >Edit</a>  <a href="javascript:void();" data-id="'.$row['id'].'"  class="btn btn-danger btn-sm deleteBtn" >Delete</a>';
-	$data[] = $sub_array;
-}
+///TABLA DONDE SE DESPLIEGAN LOS REGISTROS //////////////////////////////
+echo '<table class="table" style="font-size:15px; margin-top:-1%;">
 
-$output = array(
-	'draw'=> intval($_POST['draw']),
-	'recordsTotal' =>$count_rows ,
-	'recordsFiltered'=>   $total_all_rows,
-	'data'=>$data,
-);
-echo  json_encode($output);
+				<tr class="active">
+					<th >NOMBRE</th>
+					<th >NÚMERO DE TAPA</th>
+				</tr>';
+
+				while ($filaAlumnos = $resAlumnos->fetch_array(MYSQLI_BOTH))
+				{
+					echo'<tr>
+						 <td>'.$filaAlumnos['name'].'</td>
+						 <td>'.$filaAlumnos['score'].'</td>
+						 </tr>';
+				}
+				echo '</table>';
+?>

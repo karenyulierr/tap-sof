@@ -1,3 +1,6 @@
+$(function () {
+  getDates();
+});
 $(document).ready(function () {
   $('#example').DataTable({
     "fnCreatedRow": function (nRow, aData, iDataIndex) {
@@ -17,7 +20,7 @@ $(document).ready(function () {
     }]
   });
 });
-$(document).ready(function () {
+function getDates() {
   $('#exampleList').DataTable({
     "fnCreatedRows": function (nRow, aData, iDataIndex) {
       $(nRow).attr('id', aData[0]);
@@ -35,7 +38,7 @@ $(document).ready(function () {
       'orderable': false,
     }]
   });
-});
+};
 $(document).on('submit', '#addUser', function (e) {
   e.preventDefault();
   var city = $('#addCityField').val();
@@ -58,6 +61,7 @@ $(document).on('submit', '#addUser', function (e) {
         if (status == 'true') {
           mytable = $('#example').DataTable();
           mytable.draw();
+          getDates();
           mytables = $('#exampleList').DataTable();
           mytables.draw();
           $('#addUserModal').modal('hide');
